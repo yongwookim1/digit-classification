@@ -26,4 +26,27 @@ class MNIST(Dataset):
 def data_loader(type, batch_size):
     # 데이터 로드
     test_data = pd.read_csv("data/test.csv")
-    train_data = pd.read_csv("data/train.csv")
+    train_data = pd.read_csv("data/train.csv") 
+    
+    # 데이터 전처리
+    train = np.array(train_data)
+    train_size = int(len(train) * 0.9)
+    valid_size = len(train) - train_size    
+
+    train_dataset, valid_dataset = random_split(train, (train_size, valid_size))
+
+    train_dataset = np.array(train_dataset)
+    valid_dataset = np.array(valid_dataset)
+    x_train = train_dataset[:, 1:]
+    x_valid = valid_dataset[:, 1:]
+    y_train = train_dataset[:, 0]
+    y_valid = valid_dataset[:, 0]
+    x_test = np.array(test_data)
+
+    x_train = torch.tensor(x_train, dtype=torch.float).view(-1, 1, 28, 28)
+    x_valid = torch.tensor(x_valid, dtype=torch.float).view(-1, 1, 28, 28)
+    x_test = torch.tensor(x_test, dtype=torch.float).view(-1, 1, 28, 28)
+
+    y_train = torch.tensor(y_train)
+    y_valid = torch.tensor(y_valid)
+    y_test = torch.randn(len(x_test), 10)  # Dummy labels for test set
