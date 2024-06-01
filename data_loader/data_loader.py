@@ -21,3 +21,9 @@ class MNIST(Dataset):
         transformed_img = self.transforms(img)
         label = self.y_data[idx]
         return transformed_img, label
+
+# 데이터 로드 및 전처리 함수
+def data_loader(type, batch_size):
+    # 데이터 로드
+    test_data = pd.read_csv("data/test.csv")
+    train_data = pd.read_csv("data/train.csv")
