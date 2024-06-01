@@ -27,7 +27,7 @@ def data_loader(type, batch_size):
     # 데이터 로드
     test_data = pd.read_csv("data/test.csv")
     train_data = pd.read_csv("data/train.csv") 
-    
+
     # 데이터 전처리
     train = np.array(train_data)
     train_size = int(len(train) * 0.9)
@@ -50,3 +50,20 @@ def data_loader(type, batch_size):
     y_train = torch.tensor(y_train)
     y_valid = torch.tensor(y_valid)
     y_test = torch.randn(len(x_test), 10)  # Dummy labels for test set
+
+    # 이미지 변환 정의
+    train_transforms = v2.Compose(
+        [
+            v2.Resize(32, antialias=True),
+            v2.RandomRotation(15),
+            v2.ToDtype(torch.float32, scale=True),
+            v2.Normalize(mean=[0.1307], std=[0.3081]),
+        ]
+    )
+    test_transforms = v2.Compose(
+        [
+            v2.Resize(32, antialias=True),
+            v2.ToDtype(torch.float32, scale=True),
+            v2.Normalize(mean=[0.1307], std=[0.3081]),
+        ]
+    )
