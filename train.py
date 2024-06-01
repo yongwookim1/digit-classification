@@ -46,4 +46,28 @@ def train(train_loader, valid_loader, args):
         epoch_loss = epoch_loss / len(train_loader.dataset)
         epoch_acc = epoch_corrects.double() / len(train_loader.dataset)
 
-        print(f"train_loss : {epoch_loss:.4f}" acc : {epoch_acc:.4f})
+        print(f"Train loss : {epoch_loss:.4f} acc : {epoch_acc:.4f}")
+
+        epoch_loss =0.0
+        epoch_corrects = 0
+        model.eval()
+        for batch_in, batch_out in tqdm(valid_loader):
+            batch_in = batch_in.to(device)
+            batch_out = batch_out.to(device)
+
+            with torch.no_grad():
+                y_pred = model(batch_in)
+                preds = torch.argmax(y_pred, 1)
+            
+            epoch_loss += loss.item() * batch_in.size(0)
+            epoch_corrects += torch.sum(preds == batch_out.data)
+
+            if epoch_acc >= best_acc:
+                best_acc = epoch_acc
+                best_epoch = epoch+1
+                torch.save(model, "checkpoints/model.pt")
+
+            print(f"valid loss : {epoch_loss:.4f} acc: {epoch_acc:.4f}")
+            print(f"best acc : {best_acc:.4f}")
+            print(f"best epoch : {best_epoch}")
+            print("-"*40)
