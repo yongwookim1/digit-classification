@@ -71,3 +71,34 @@ def train(train_loader, valid_loader, args):
             print(f"best acc : {best_acc:.4f}")
             print(f"best epoch : {best_epoch}")
             print("-"*40)
+    
+    if __name__ == "__main__":
+        parser = argparse.ArgumentParser()
+
+        parser.add_argument(
+            "--seed", type=int, default=42, help="Random seed (default: 42)"
+        )
+        parser.add_argument(
+            "--epochs",
+            type=int,
+            default=200,
+            help="Number of epochs to train (default: 200)",
+        )
+        parser.add_argument(
+            "--lr", type=float, default=1e-3, help="Learning rate (default: 1e-3)"
+        )
+        parser.add_argument(
+            "--batch_size",
+            type=int,
+            default=1024,
+            help="Batch size of train, validation dataset (default: 1024)",
+        )
+
+        args = parser.parse_args()
+        print(args)
+
+        train(
+            data_loader("train", batch_size=args.batch_size),
+            data_loader("valid", batch_size=args.batch_size),
+            args,
+        )
