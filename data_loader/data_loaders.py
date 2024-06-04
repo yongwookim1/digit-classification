@@ -67,3 +67,29 @@ def data_loader(type, batch_size):
             v2.Normalize(mean=[0.1307], std=[0.3081]),
         ]
     )
+
+    if type == "train":
+        train_dataset = MNIST(x_train, y_train, train_transforms)
+        train_loader = DataLoader(
+            train_dataset,
+            batch_size=batch_size,
+            num_workers=4,
+            shuffle=True,
+        )
+        return train_loader
+
+    if type == "valid":
+        valid_dataset = MNIST(x_valid, y_valid, test_transforms)
+        valid_loader = DataLoader(
+            valid_dataset,
+            batch_size=batch_size,
+            num_workers=4,
+            shuffle=False,
+        )
+        return valid_loader
+    if type == "test":
+        test_dataset = MNIST(x_test, y_test, test_transforms)
+        test_loader = DataLoader(
+            test_dataset, batch_size=1, num_workers=4, shuffle=False, drop_last=False
+        )
+        return test_loader
