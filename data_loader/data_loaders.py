@@ -6,6 +6,7 @@ from torchvision.transforms import v2
 
 import numpy as np
 
+
 # MNIST Dataset 정의
 class MNIST(Dataset):
     def __init__(self, x_data, y_data, transforms):
@@ -22,16 +23,17 @@ class MNIST(Dataset):
         label = self.y_data[idx]
         return transformed_img, label
 
+
 # 데이터 로드 및 전처리 함수
 def data_loader(type, batch_size):
     # 데이터 로드
     test_data = pd.read_csv("data/test.csv")
-    train_data = pd.read_csv("data/train.csv") 
+    train_data = pd.read_csv("data/train.csv")
 
     # 데이터 전처리
     train = np.array(train_data)
     train_size = int(len(train) * 0.9)
-    valid_size = len(train) - train_size    
+    valid_size = len(train) - train_size
 
     train_dataset, valid_dataset = random_split(train, (train_size, valid_size))
 
