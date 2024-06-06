@@ -32,3 +32,19 @@ def transform_image(image_bytes: bytes) -> torch.Tensor:
     )
     transformed_img = test_transforms(image)  # 변환 적용
     return transformed_img
+
+# 메인 함수
+def main():
+    st.title("Digit Classification Model")  # 앱 제목 설정
+
+    model = torch.load("checkpoints/model.pt")  # 모델 불러오기
+    device = torch.device(
+        "cuda" if torch.cuda.is_available() else "cpu"
+    )  # CUDA를 사용할 수 있는지 확인
+    model.to(device)  # 모델을 장치로 이동
+    model.eval()  # 모델 평가 모드 설정
+
+
+if __name__ == "__main__":
+    main()  # 메인 함수 실행
+
