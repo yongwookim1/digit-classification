@@ -38,7 +38,9 @@ conda env create -f requirements/requirements.yaml
 ## Dataset
 
 Data: https://www.kaggle.com/competitions/digit-recognizer/data
+
 License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
+
 Put this dataset in data folder.
 
 ## Train
