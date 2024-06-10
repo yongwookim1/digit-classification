@@ -1,8 +1,9 @@
 # Digit classification model
+This project aims to create a model that recognizes handwritten digits using a dataset from Kaggle.
+The model accurately classifies images of numbers ranging from 0 to 9.
 
 ## Overview
-
-Classify digits.
+This project utilizes machine learning and deep learning techniques to train on the MNIST dataset and develop a model for digit recognition. The main steps include data preparation, model construction, training, evaluation, and testing.
 
 ## Folder structure
 
