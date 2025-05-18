@@ -32,7 +32,7 @@ This project utilizes machine learning and deep learning techniques to train on 
 
 Linux or Mac OS
 ```
-git clone https://github.com/ICE-opensource4/Digit_Classification_Model.git
+git clone https://github.com/ICE-opensource4/digit-classification.git
 conda env create -f requirements/requirements.yaml
 ```
 
